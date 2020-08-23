@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { BusStopsData, renderBusStopNames } from "../data/bus-stops-data";
+import Autocomplete from "react-native-dropdown-autocomplete-textinput";
 import {
   View,
   SafeAreaView,
@@ -23,6 +25,7 @@ class BusFinderScreen extends Component {
     alert("Source: " + source + " Destination: " + destination);
   };
   render() {
+    const { query } = this.state;
     return (
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
@@ -30,23 +33,41 @@ class BusFinderScreen extends Component {
             <Text style={styles.capitalLetter}> Bus Finder</Text>
           </Text>
         </SafeAreaView>
-        <TextInput
+        <View style={styles.dropdown}>
+          <Autocomplete
+            style={styles.input}
+            data={BUS_DATA}
+            displayKey="stop_name"
+            placeholder={"Source"}
+            onSelect={(value) => console.log("value", value)}
+            maxHeight={150}
+          />
+          {/* <TextInput
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="Source"
           placeholderTextColor="#9a73ef"
           autoCapitalize="none"
           onChangeText={this.handlesource}
-        />
+        /> */}
+          <Autocomplete
+            style={styles.input}
+            data={BUS_DATA}
+            displayKey="stop_name"
+            placeholder={"Destination"}
+            onSelect={(value) => console.log("value", value)}
+            maxHeight={4}
+          />
+        </View>
+        {/* <TextInput
 
-        <TextInput
           style={styles.input}
           underlineColorAndroid="transparent"
           placeholder="Destination"
           placeholderTextColor="#9a73ef"
           autoCapitalize="none"
           onChangeText={this.handledestination}
-        />
+        /> */}
 
         <TouchableOpacity
           style={styles.submitButton}
@@ -62,10 +83,17 @@ class BusFinderScreen extends Component {
 }
 export default BusFinderScreen;
 
+const DATA = [
+  { code: "AP", name: "Andhra Pradesh" },
+  { code: "AR", name: "Arunachal Pradesh" },
+];
+const BUS_DATA = BusStopsData();
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
   },
+  dropdown: {},
+
   text: {
     color: "#41cdf4",
     fontSize: 36,
