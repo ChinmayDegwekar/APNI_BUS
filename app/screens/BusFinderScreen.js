@@ -40,7 +40,7 @@ class BusFinderScreen extends Component {
             displayKey="stop_name"
             placeholder={"Source"}
             onSelect={(value) => console.log("value", value)}
-            maxHeight={150}
+            maxHeight={150} //Controls visible options
           />
           {/* <TextInput
           style={styles.input}
@@ -56,7 +56,7 @@ class BusFinderScreen extends Component {
             displayKey="stop_name"
             placeholder={"Destination"}
             onSelect={(value) => console.log("value", value)}
-            maxHeight={4}
+            maxHeight={150}
           />
         </View>
         {/* <TextInput
