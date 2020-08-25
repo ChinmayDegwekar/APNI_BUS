@@ -10,6 +10,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BusFinderScreen from "./app/screens/BusFinderScreen";
 import TrackBusScreen from "./app/screens/TrackBusScreen";
 import FareCalculatorScreen from "./app/screens/FareCalculatorScreen";
+import ListBusScreen from "./app/screens/ListBusScreen";
+import RouteFinderScreen from "./app/screens/RouteFinderScreen";
+import BusRouteScreen from "./app/screens/BusRouteScreen";
 
 export default function App() {
   console.log("app started");
@@ -20,11 +23,16 @@ export default function App() {
         <Stack.Screen name="MenuActivity" component={MenuScreen} />
         <Stack.Screen name="BusFinderActivity" component={BusFinderScreen} />
         <Stack.Screen name="TrackBusActivity" component={TrackBusScreen} />
-        {/* <Stack.Screen name="RouteFinderActivity" component={Rou} /> */}
+        <Stack.Screen
+          name="RouteFinderActivity"
+          component={RouteFinderScreen}
+        />
         <Stack.Screen
           name="FareCalculatorActivity"
           component={FareCalculatorScreen}
         />
+        <Stack.Screen name="ListBusActivity" component={ListBusScreen} />
+        <Stack.Screen name="BusRouteActivity" component={BusRouteScreen} />
       </Stack.Navigator>
     </NavigationContainer>
     // console.log('sdfsd');

@@ -71,9 +71,7 @@ class BusFinderScreen extends Component {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() =>
-            this.busFinder(this.state.source, this.state.destination)
-          }
+          onPress={() => this.props.navigation.navigate("ListBusActivity")}
         >
           <Text style={styles.submitButtonText}> Submit </Text>
         </TouchableOpacity>
