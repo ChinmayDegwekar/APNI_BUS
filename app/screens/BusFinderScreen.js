@@ -14,12 +14,14 @@ class BusFinderScreen extends Component {
   state = {
     source: "",
     destination: "",
+    src_id: "",
+    dest_id: "",
   };
   handleSource = (text) => {
     this.setState({ source: text });
   };
   handledestination = (text) => {
-    this.setState({ destinationdestination: text });
+    this.setState({ destination: text });
   };
   busFinder = (source, destination) => {
     alert("Source: " + source + " Destination: " + destination);
@@ -39,7 +41,11 @@ class BusFinderScreen extends Component {
             data={BUS_DATA}
             displayKey="stop_name"
             placeholder={"Source"}
-            onSelect={(value) => console.log("value", value)}
+            onSelect={(value) => {
+              console.log("value", value);
+              this.handleSource(value.stop_name);
+              this.state.src_id = value.stop_id;
+            }}
             maxHeight={150} //Controls visible options
           />
           {/* <TextInput
@@ -55,7 +61,11 @@ class BusFinderScreen extends Component {
             data={BUS_DATA}
             displayKey="stop_name"
             placeholder={"Destination"}
-            onSelect={(value) => console.log("value", value)}
+            onSelect={(value) => {
+              console.log("value", value);
+              this.handledestination(value.stop_name);
+              this.state.dest_id = value.stop_id;
+            }}
             maxHeight={150}
           />
         </View>
@@ -71,7 +81,14 @@ class BusFinderScreen extends Component {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() => this.props.navigation.navigate("ListBusActivity")}
+          onPress={() =>
+            this.props.navigation.navigate("ListBusActivity", {
+              source: this.state.source,
+              destination: this.state.destination,
+              src_id: this.state.src_id,
+              dest_id: this.state.dest_id,
+            })
+          }
         >
           <Text style={styles.submitButtonText}> Submit </Text>
         </TouchableOpacity>

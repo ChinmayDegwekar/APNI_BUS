@@ -191,8 +191,7 @@ class FareCalculatorScreen extends Component {
         {this.state.showTable && this.state.fare_data == null ? (
           <View>
             <Text style={styles.no_route_style}>
-              No route between {this.state.source} and
-              {this.state.destination}
+              No route between {this.state.source} and {this.state.destination}
             </Text>
           </View>
         ) : null}
