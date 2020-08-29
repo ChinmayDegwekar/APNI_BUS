@@ -13,6 +13,9 @@ import Autocomplete from "react-native-dropdown-autocomplete-textinput";
 import { BusNumbersData } from "../data/bus-number-data";
 
 class RouteFinderScreen extends Component {
+  state = {
+    bus_num: "",
+  };
   render() {
     return (
       <KeyboardAvoidingView
@@ -32,13 +35,20 @@ class RouteFinderScreen extends Component {
               data={BUS_NUMBER_DATA}
               displayKey="bus_number"
               placeholder={"Bus Number"}
-              onSelect={(value) => console.log("value", value)}
+              onSelect={(value) => {
+                console.log("value", value);
+                this.state.bus_num = value;
+              }}
               maxHeight={150}
             />
 
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => this.props.navigation.navigate("BusRouteActivity")}
+              onPress={() =>
+                this.props.navigation.navigate("BusRouteActivity", {
+                  bus_num: this.state.bus_num,
+                })
+              }
             >
               <Text style={styles.submitButtonText}> Find Route </Text>
             </TouchableOpacity>
