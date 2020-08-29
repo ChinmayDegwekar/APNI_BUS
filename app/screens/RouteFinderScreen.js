@@ -37,7 +37,7 @@ class RouteFinderScreen extends Component {
               placeholder={"Bus Number"}
               onSelect={(value) => {
                 console.log("value", value);
-                this.state.bus_num = value;
+                this.state.bus_num = value.bus_number;
               }}
               maxHeight={150}
             />
