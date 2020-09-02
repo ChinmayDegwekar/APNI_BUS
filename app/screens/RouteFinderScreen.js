@@ -11,10 +11,11 @@ import {
 } from "react-native";
 import Autocomplete from "react-native-dropdown-autocomplete-textinput";
 import { BusNumbersData } from "../data/bus-number-data";
+import Toast from "react-native-simple-toast";
 
 class RouteFinderScreen extends Component {
   state = {
-    bus_num: "",
+    bus_num: null,
   };
   render() {
     return (
@@ -37,6 +38,7 @@ class RouteFinderScreen extends Component {
               placeholder={"Bus Number"}
               onSelect={(value) => {
                 console.log("value", value);
+                console.log("value", value);
                 this.state.bus_num = value.bus_number;
               }}
               maxHeight={150}
@@ -44,11 +46,14 @@ class RouteFinderScreen extends Component {
 
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() =>
-                this.props.navigation.navigate("BusRouteActivity", {
-                  bus_num: this.state.bus_num,
-                })
-              }
+              onPress={() => {
+                if (this.state.bus_num == null)
+                  Toast.show("Please enter bus number", Toast.LONG);
+                else
+                  this.props.navigation.navigate("BusRouteActivity", {
+                    bus_num: this.state.bus_num,
+                  });
+              }}
             >
               <Text style={styles.submitButtonText}> Find Route </Text>
             </TouchableOpacity>
