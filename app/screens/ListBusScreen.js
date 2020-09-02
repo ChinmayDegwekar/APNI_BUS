@@ -25,17 +25,21 @@ class ListBusScreen extends Component {
   }
 
   getRemoteData = () => {
-    // var src_id = this.props.route.params["src_id"];
-    // var dest_id = this.props.route.params["dest_id"];
+    var src_id = this.props.route.params["src_id"];
+    var dest_id = this.props.route.params["dest_id"];
+    var timestamp = this.props.route.params["timestamp"];
     // console.log(this.props.route.params["source"]);
-    var src_id = 106;
-    var dest_id = 336;
+    // var src_id = 106;
+    // var dest_id = 336;
     const url =
       "http://157.245.110.40/getBusFinder.php/?src_id=" +
       src_id +
       "&dest_id=" +
       dest_id +
-      "&time=10:35:5";
+      "&time=" +
+      timestamp;
+
+    console.log(url);
     fetch(url)
       .then((res) => res.json())
       .then((json) => {

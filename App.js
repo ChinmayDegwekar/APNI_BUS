@@ -38,6 +38,8 @@ export default function App() {
     // console.log('sdfsd');
     // <WelcomeScreen />
   );
+
+  console.disableYellowBox = true;
 }
 const Stack = createStackNavigator();
 const styles = StyleSheet.create({

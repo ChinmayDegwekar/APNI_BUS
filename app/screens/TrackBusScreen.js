@@ -96,7 +96,7 @@ const BUS_NUMBER_DATA = BusNumbersData();
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: 5,
   },
   text: {
     color: "#41cdf4",

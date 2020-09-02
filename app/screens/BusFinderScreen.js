@@ -16,7 +16,17 @@ class BusFinderScreen extends Component {
     destination: "",
     src_id: "",
     dest_id: "",
+    timestamp: "",
   };
+  componentDidMount() {
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    var ts = hours + ":" + min + ":" + sec;
+    this.setState({ timestamp: ts });
+    console.log(ts);
+    console.disableYellowBox = true;
+  }
   handleSource = (text) => {
     this.setState({ source: text });
   };
@@ -87,6 +97,7 @@ class BusFinderScreen extends Component {
               destination: this.state.destination,
               src_id: this.state.src_id,
               dest_id: this.state.dest_id,
+              timestamp: this.state.timestamp,
             })
           }
         >
