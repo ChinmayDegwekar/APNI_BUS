@@ -10,8 +10,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import Toast from "react-native-simple-toast";
 
-class ListBusScreen extends Component {
+class ListBusTrackScreen extends Component {
   constructor() {
     super();
 
@@ -56,36 +57,21 @@ class ListBusScreen extends Component {
   };
   renderNativeItem(item) {
     // console.log("render item called");
-    // console.log(item);
+    console.log(item);
     return (
-      <View
-        style={{
-          // flex: 1,
-          flexDirection: "row",
-          backgroundColor: "#f9c2ff",
-          padding: 10,
-          marginVertical: 8,
-          marginHorizontal: 16,
-          // marginTop: 5,
-          // height: 50,
-          justifyContent: "space-between",
-        }}
+      <TouchableOpacity
+        onPress={() => Toast.show("Trip id" + item.trip.trip_id)}
       >
-        <View>
-          <Text style={styles.textRow}>{item.bus_no}</Text>
-        </View>
+        <View style={styles.listStyle}>
+          <View>
+            <Text style={styles.textRow}>{item.bus_no}</Text>
+          </View>
 
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-            // marginRight: 10,
-          }}
-        >
-          <Text style={styles.textRow}>{item.trip.arrival_time}</Text>
+          <View style={styles.timeStyle}>
+            <Text style={styles.textRow}>{item.trip.arrival_time}</Text>
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -104,9 +90,7 @@ class ListBusScreen extends Component {
               <View>
                 <Text style={styles.text}>
                   <Text style={styles.capitalLetter}>
-                    {" "}
-                    Buses between {this.props.route.params["source"]} and
-                    {this.props.route.params["destination"]}
+                    Select a bus to track
                   </Text>
                 </Text>
 
@@ -135,7 +119,7 @@ class ListBusScreen extends Component {
     );
   }
 }
-export default ListBusScreen;
+export default ListBusTrackScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -147,6 +131,17 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  listStyle: {
+    // flex: 1,
+    flexDirection: "row",
+    backgroundColor: "#f9c2ff",
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    // marginTop: 5,
+    // height: 50,
+    justifyContent: "space-between",
   },
   text: {
     color: "#41cdf4",
@@ -161,6 +156,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     paddingBottom: 23,
+  },
+  timeStyle: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    // marginRight: 10,
   },
   title: {
     fontSize: 32,

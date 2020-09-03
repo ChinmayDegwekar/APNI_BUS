@@ -11,6 +11,7 @@ import BusFinderScreen from "./app/screens/BusFinderScreen";
 import TrackBusScreen from "./app/screens/TrackBusScreen";
 import FareCalculatorScreen from "./app/screens/FareCalculatorScreen";
 import ListBusScreen from "./app/screens/ListBusScreen";
+import ListBusTrackScreen from "./app/screens/ListBusTrackScreen";
 import RouteFinderScreen from "./app/screens/RouteFinderScreen";
 import BusRouteScreen from "./app/screens/BusRouteScreen";
 
@@ -32,6 +33,10 @@ export default function App() {
           component={FareCalculatorScreen}
         />
         <Stack.Screen name="ListBusActivity" component={ListBusScreen} />
+        <Stack.Screen
+          name="ListBusTrackActivity"
+          component={ListBusTrackScreen}
+        />
         <Stack.Screen name="BusRouteActivity" component={BusRouteScreen} />
       </Stack.Navigator>
     </NavigationContainer>

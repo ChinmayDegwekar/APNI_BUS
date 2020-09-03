@@ -13,16 +13,31 @@ import { BusNumbersData } from "../data/bus-number-data";
 import { Header } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import { YellowBox } from "react-native";
+import { BusStopsData, renderBusStopNames } from "../data/bus-stops-data";
 
 YellowBox.ignoreWarnings([
   "VirtualizedLists should never be nested", // TODO: Remove when fixed
+  "Failed prop type",
 ]);
 
 class TrackBusScreen extends Component {
   state = {
     source: "",
     destination: "",
+    src_id: "",
+    dest_id: "",
+    timestamp: "",
   };
+
+  componentDidMount() {
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    var ts = hours + ":" + min + ":" + sec;
+    this.setState({ timestamp: ts });
+    console.log(ts);
+    console.disableYellowBox = true;
+  }
   handleSource = (text) => {
     this.setState({ source: text });
   };
@@ -34,70 +49,75 @@ class TrackBusScreen extends Component {
   };
   render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior="padding"
-        keyboardVerticalOffset={-500} // adjust the value here if you need more padding
-      >
-        <ScrollView>
-          <View style={styles.container}>
-            <SafeAreaView style={styles.container}>
-              <Text style={styles.text}>
-                <Text style={styles.capitalLetter}>Track Bus</Text>
-              </Text>
-            </SafeAreaView>
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Source"
-              placeholderTextColor="#9a73ef"
-              autoCapitalize="none"
-              onChangeText={this.handlesource}
-            />
+      // <KeyboardAvoidingView
+      //   style={styles.container}
+      //   behavior="padding"
+      //   keyboardVerticalOffset={-500} // adjust the value here if you need more padding
+      // >
+      // <ScrollView>
+      <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
+          <Text style={styles.text}>
+            <Text style={styles.capitalLetter}>Track Bus</Text>
+          </Text>
+        </SafeAreaView>
+        <View style={styles.dropdown}>
+          <Autocomplete
+            style={styles.input}
+            data={BUS_DATA}
+            displayKey="stop_name"
+            placeholder={"Source"}
+            onSelect={(value) => {
+              console.log("value", value);
+              this.handleSource(value.stop_name);
+              this.state.src_id = value.stop_id;
+            }}
+            maxHeight={150} //Controls visible options
+          />
 
-            <TextInput
-              style={styles.input}
-              underlineColorAndroid="transparent"
-              placeholder="Destination"
-              placeholderTextColor="#9a73ef"
-              autoCapitalize="none"
-              onChangeText={this.handledestination}
-            />
+          <Autocomplete
+            style={styles.input}
+            data={BUS_DATA}
+            displayKey="stop_name"
+            placeholder={"Destination"}
+            onSelect={(value) => {
+              console.log("value", value);
+              this.handledestination(value.stop_name);
+              this.state.dest_id = value.stop_id;
+            }}
+            maxHeight={150}
+          />
+        </View>
 
-            <Text style={styles.text}>
-              <Text style={styles.capitalLetter}>OR</Text>
-            </Text>
-            <Autocomplete
-              style={styles.input}
-              data={BUS_NUMBER_DATA}
-              displayKey="bus_number"
-              placeholder={"Bus Number"}
-              onSelect={(value) => console.log("value", value)}
-              maxHeight={150}
-            />
-
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={() =>
-                this.trackBus(this.state.source, this.state.destination)
-              }
-            >
-              <Text style={styles.submitButtonText}> Submit </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        <TouchableOpacity
+          style={styles.submitButton}
+          onPress={() =>
+            this.props.navigation.navigate("ListBusTrackActivity", {
+              source: this.state.source,
+              destination: this.state.destination,
+              src_id: this.state.src_id,
+              dest_id: this.state.dest_id,
+              timestamp: this.state.timestamp,
+            })
+          }
+        >
+          <Text style={styles.submitButtonText}> Submit </Text>
+        </TouchableOpacity>
+      </View>
+      // </ScrollView>
+      // </KeyboardAvoidingView>
     );
   }
 }
 export default TrackBusScreen;
 
 const BUS_NUMBER_DATA = BusNumbersData();
-
+const BUS_DATA = BusStopsData();
 const styles = StyleSheet.create({
   container: {
     paddingTop: 5,
   },
+  dropdown: {},
   text: {
     color: "#41cdf4",
     fontSize: 36,
