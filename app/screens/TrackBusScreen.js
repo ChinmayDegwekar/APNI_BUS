@@ -14,6 +14,7 @@ import { Header } from "@react-navigation/stack";
 import { ScrollView } from "react-native-gesture-handler";
 import { YellowBox } from "react-native";
 import { BusStopsData, renderBusStopNames } from "../data/bus-stops-data";
+import Toast from "react-native-simple-toast";
 
 YellowBox.ignoreWarnings([
   "VirtualizedLists should never be nested",
@@ -27,8 +28,8 @@ Target Screen : ListBusTrackScreen
 */
 class TrackBusScreen extends Component {
   state = {
-    source: "",
-    destination: "",
+    source: null,
+    destination: null,
     src_id: "",
     dest_id: "",
     timestamp: "",
@@ -47,7 +48,7 @@ class TrackBusScreen extends Component {
     this.setState({ source: text });
   };
   handledestination = (text) => {
-    this.setState({ destinationdestination: text });
+    this.setState({ destination: text });
   };
   trackBus = (source, destination) => {
     alert("Source: " + source + " Destination: " + destination);
@@ -96,15 +97,20 @@ class TrackBusScreen extends Component {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() =>
-            this.props.navigation.navigate("ListBusTrackActivity", {
-              source: this.state.source,
-              destination: this.state.destination,
-              src_id: this.state.src_id,
-              dest_id: this.state.dest_id,
-              timestamp: this.state.timestamp,
-            })
-          }
+          onPress={() => {
+            if (this.state.source == null || this.state.destination == null)
+              Toast.show("Please select source and destination", Toast.LONG);
+            else if (this.state.source == this.state.destination)
+              Toast.show("Source and destination is same ", Toast.LONG);
+            else
+              this.props.navigation.navigate("ListBusTrackActivity", {
+                source: this.state.source,
+                destination: this.state.destination,
+                src_id: this.state.src_id,
+                dest_id: this.state.dest_id,
+                timestamp: this.state.timestamp,
+              });
+          }}
         >
           <Text style={styles.submitButtonText}> Submit </Text>
         </TouchableOpacity>

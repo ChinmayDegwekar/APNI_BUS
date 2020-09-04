@@ -45,6 +45,8 @@ class BusTrackMapScreen extends React.Component {
       update_bus_stop_id: 0,
       update_crowd_status: "low",
       pickerValue: "",
+      route: null,
+      marker_present: true,
     };
   }
 
@@ -64,6 +66,16 @@ class BusTrackMapScreen extends React.Component {
     }
     return new_json;
   }
+  setMarkerStatus() {
+    for (var i = 0; i < 3; i++) {
+      if (this.state.data.success == "true") {
+        this.setState({ marker_present: true });
+        return;
+      }
+    }
+    this.setState({ marker_present: false });
+    return;
+  }
 
   componentDidMount() {
     // var trip_id = this.props.route.params["trip_id"];
@@ -71,13 +83,18 @@ class BusTrackMapScreen extends React.Component {
 
     var ts = this.props.route.params["timestamp"];
     console.log("Mountted" + ts);
-    this.setState({
-      update_time: ts,
-      update_trip_id: top_three_ids[0],
-    });
+
     var top_three_bus_numbers = this.props.route.params[
       "top_three_bus_numbers"
     ];
+    var top_three_routes = this.props.route.params["top_three_routes"];
+    // console.log(top_three_routes[0]);
+    // console.log(top_three_routes[1]);
+    this.setState({
+      update_time: ts,
+      update_trip_id: top_three_ids[0],
+      route: top_three_routes[0],
+    });
     // var top_three_bus_numbers = ["108STL", "108STL", "108STL"];
     var trip_id = 100;
     const url =
@@ -98,17 +115,15 @@ class BusTrackMapScreen extends React.Component {
           data: json,
           isLoading: false,
         });
+        this.setMarkerStatus();
       })
       .catch((error) => {
         console.log("get data error:" + error);
       });
   }
-  // showWelcomeMessage = {} =>{
-  //   Alert.alert{'Welcome to Apni Bus Delhi'}
-  // }
 
   generatePicker() {
-    return route.map((item) => {
+    return this.state.route.map((item) => {
       var name = item.bus_stop_name;
       var id = item.bus_stop_id;
       return (
@@ -136,7 +151,8 @@ class BusTrackMapScreen extends React.Component {
       if (item.success == "false") {
         // SimpleToast.show("No tracking information to show at this moment");
         return null;
-      } else
+      } else {
+        marker_present = true;
         return (
           <Marker
             coordinate={{
@@ -147,6 +163,7 @@ class BusTrackMapScreen extends React.Component {
             image={icon}
           ></Marker>
         );
+      }
     });
   }
 
@@ -179,6 +196,7 @@ class BusTrackMapScreen extends React.Component {
 
   render() {
     console.log("is loading" + this.state.isLoading);
+
     var img_path = "";
     var icon;
     if (this.state.isLoading == false) {
@@ -206,6 +224,7 @@ class BusTrackMapScreen extends React.Component {
                 //   ></Marker>
                 this.generateMarker()
               : null}
+
             {/* <MapView region={this.props.coordinate} showsUserLocation={true}>
           //My map markers
         </MapView> */}
@@ -230,7 +249,14 @@ class BusTrackMapScreen extends React.Component {
             >
               {/* <Picker.Item label="Java" value="java" />
               <Picker.Item label="JavaScript" value="js" /> */}
-              {this.generatePicker()}
+              {this.state.isLoading == false
+                ? //   <Marker
+                  //     coordinate={{ latitude: 28.549766, longitude: 77.185222 }}
+                  //     title={"Last seen : " + this.state.data.bus_stop_name}
+                  //     image={icon}
+                  //   ></Marker>
+                  this.generatePicker()
+                : null}
             </Picker>
             <Picker
               // selectedValue={selectedValue}
@@ -265,15 +291,15 @@ class BusTrackMapScreen extends React.Component {
   }
 }
 export default BusTrackMapScreen;
-
-const route = [
-  { bus_stop_id: "1763", bus_stop_name: "Nehru Vihar" },
-  { bus_stop_id: "3094", bus_stop_name: "Nehru Vihar Xing" },
-  { bus_stop_id: "2316", bus_stop_name: "Police Station Timarpur" },
-  { bus_stop_id: "681", bus_stop_name: "Balak Ram Hospital" },
-  { bus_stop_id: "1517", bus_stop_name: "Timarpur" },
-  { bus_stop_id: "2028", bus_stop_name: "Banarsi Daas Estate Timarpur" },
-];
+var marker_present = false;
+// const route = [
+//   { bus_stop_id: "1763", bus_stop_name: "Nehru Vihar" },
+//   { bus_stop_id: "3094", bus_stop_name: "Nehru Vihar Xing" },
+//   { bus_stop_id: "2316", bus_stop_name: "Police Station Timarpur" },
+//   { bus_stop_id: "681", bus_stop_name: "Balak Ram Hospital" },
+//   { bus_stop_id: "1517", bus_stop_name: "Timarpur" },
+//   { bus_stop_id: "2028", bus_stop_name: "Banarsi Daas Estate Timarpur" },
+// ];
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

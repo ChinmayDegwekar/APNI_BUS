@@ -26,6 +26,8 @@ class ListBusTrackScreen extends Component {
 
     this.state = {
       data: 1,
+      source: "",
+      destination: "",
       isLoading: true,
       trip_id_list: [],
       routes_list: [],
@@ -36,17 +38,21 @@ class ListBusTrackScreen extends Component {
 
   componentDidMount() {
     console.log(this.state.data);
+    this.setState({
+      source: this.props.route.params["source"],
+      destination: this.props.route.params["destination"],
+    });
   }
 
   getRemoteData = () => {
-    // var src_id = this.props.route.params["src_id"];
-    // var dest_id = this.props.route.params["dest_id"];
-    // var timestamp = this.props.route.params["timestamp"];
+    var src_id = this.props.route.params["src_id"];
+    var dest_id = this.props.route.params["dest_id"];
+    var timestamp = this.props.route.params["timestamp"];
 
     // console.log(this.props.route.params["source"]);
-    var src_id = 3094;
-    var dest_id = 1022;
-    var timestamp = "10:10:10";
+    // var src_id = 3094;
+    // var dest_id = 1022;
+    // var timestamp = "10:10:10";
     const url =
       "http://157.245.110.40/getBusFinder.php/?src_id=" +
       src_id +
@@ -55,7 +61,7 @@ class ListBusTrackScreen extends Component {
       "&time=" +
       timestamp;
 
-    console.log(url);
+    // console.log(url);
     fetch(url)
       .then((res) => res.json())
       .then((json) => {
@@ -78,7 +84,7 @@ class ListBusTrackScreen extends Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          Toast.show(index + "Trip id" + item.trip.trip_id);
+          // Toast.show(index + "Trip id" + item.trip.trip_id);
           var top_three_ids = [];
           var top_three_routes = [];
           var top_three_bus_numbers = [];
@@ -88,6 +94,7 @@ class ListBusTrackScreen extends Component {
             top_three_bus_numbers.push(this.state.bus_num_list[i]);
 
             console.log(this.state.trip_id_list[i]);
+            console.log(this.state.routes_list[i]);
           }
           this.props.navigation.navigate("BusTrackMapActivity", {
             route_list: item.route,
@@ -144,7 +151,10 @@ class ListBusTrackScreen extends Component {
               </View>
             ) : (
               <View>
-                <Text>No buses</Text>
+                <Text style={styles.no_route_style}>
+                  No buses between {this.state.source} and{" "}
+                  {this.state.destination}
+                </Text>
               </View>
             )}
           </View>
@@ -204,6 +214,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  no_route_style: {
+    color: "#c90000",
+    fontSize: 24,
+    fontWeight: "bold",
+    textShadowRadius: 5,
+    alignSelf: "center",
+    paddingBottom: 23,
   },
 });
 
