@@ -12,6 +12,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 function WelcomeScreen({ navigation }) {
   console.log("Welcome called");
+  var delayInMilliseconds = 2000; //5 second
+  var timeover = false;
+  setTimeout(function () {
+    //your code to be executed after 1 second
+    timeover = true;
+    navigation.navigate("MenuActivity");
+  }, delayInMilliseconds);
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity>
@@ -21,14 +28,14 @@ function WelcomeScreen({ navigation }) {
           source={require("../assets/ApniBusLogo.png")}
         />
       </TouchableOpacity>
-      <Button
+      {/* <Button
         style={styles.button}
         // onPress={() => console.log("button pressed")}
         title="BUS APP"
         color="blue"
         accessibilityLabel="Click to Enter"
         onPress={() => navigation.navigate("MenuActivity")}
-      />
+      /> */}
 
       {/* <StatusBar style="auto" /> */}
     </SafeAreaView>
