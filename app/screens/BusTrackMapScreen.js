@@ -31,6 +31,11 @@ class BusTrackMapScreen extends React.Component {
       longitude: 77.185222,
       crowd_status: "high",
       img_path: "",
+      marker_number: 0,
+      update_trip_id: 123,
+      update_time: "",
+      update_bus_stop_id: 0,
+      update_crowd_status: "low",
     };
   }
 
@@ -41,23 +46,41 @@ class BusTrackMapScreen extends React.Component {
     });
   };
 
+  addBusNumbers(json, num_list) {
+    var new_json = [];
+    for (var i = 0; i < json.length; i++) {
+      var temp = json[i];
+      temp.bus_number = num_list[i];
+      new_json.push(temp);
+    }
+    return new_json;
+  }
+
   componentDidMount() {
     // var trip_id = this.props.route.params["trip_id"];
     var top_three_ids = [100, 101, 112];
+    var ts = this.props.route.params["timestamp"];
+    console.log("Mountted" + ts);
+    this.setState({
+      update_time: ts,
+    });
+    // var top_three_bus_numbers = this.props.route.params["top_three_bus_numbers"]
+    var top_three_bus_numbers = ["108STL", "108STL", "108STL"];
     var trip_id = 100;
     const url =
       "http://157.245.110.40/getTrackInfo.php/?trip_id1=" +
-      trip_id +
+      top_three_ids[0] +
       "&trip_id2=" +
       top_three_ids[1] +
       "&trip_id3=" +
-      top_three_ids[1];
+      top_three_ids[2];
     console.log(url);
 
     fetch(url)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
+        json = this.addBusNumbers(json, top_three_bus_numbers);
         this.setState({
           data: json,
           isLoading: false,
@@ -71,7 +94,75 @@ class BusTrackMapScreen extends React.Component {
   //   Alert.alert{'Welcome to Apni Bus Delhi'}
   // }
 
-  generateMarker() {}
+  generatePicker() {
+    return route.map((item) => {
+      var name = item.bus_stop_name;
+      var id = item.bus_stop_id;
+      return (
+        <Picker.Item
+          label={name}
+          value={id}
+          onValueChange={(itemValue, itemIndex) => {
+            this.state.update_bus_stop_id = itemValue;
+          }}
+        />
+      );
+    });
+  }
+
+  generateMarker() {
+    return this.state.data.map((item) => {
+      console.log(item.bus_stop_name);
+      var icon;
+      if (item.crowd_status == "high")
+        icon = require("../assets/crowd_high.png");
+      else if (item.crowd_status == "medium")
+        icon = require("../assets/crowd_medium.png");
+      else icon = require("../assets/crowd_low.png");
+
+      if (item.success == "false") {
+        SimpleToast.show("No tracking information to show at this moment");
+        return null;
+      } else
+        return (
+          <Marker
+            coordinate={{
+              latitude: parseFloat(item.latitude),
+              longitude: parseFloat(item.longitude),
+            }}
+            title={item.bus_number + ": " + item.bus_stop_name}
+            image={icon}
+          ></Marker>
+        );
+    });
+  }
+
+  updateStatus() {
+    this.setState({
+      update_time: this.props.route.params["timestamp"],
+    });
+    const url =
+      "http://157.245.110.40/updateBusInfo.php?" +
+      "trip_id=" +
+      this.state.update_trip_id +
+      "&time=" +
+      this.state.update_time +
+      "&bus_stop_id=" +
+      this.state.update_bus_stop_id +
+      "&crowd_status=" +
+      this.state.update_crowd_status;
+    // top_three_ids[2];
+    console.log(url);
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+      })
+      .catch((error) => {
+        console.log("get data error:" + error);
+      });
+  }
 
   render() {
     console.log("is loading" + this.state.isLoading);
@@ -94,13 +185,14 @@ class BusTrackMapScreen extends React.Component {
               longitudeDelta: LONGITUDE_DELTA,
             }}
           >
-            {this.state.isLoading == false ? (
-              <Marker
-                coordinate={{ latitude: 28.549766, longitude: 77.185222 }}
-                title={"Last seen : " + this.state.data.bus_stop_name}
-                image={icon}
-              ></Marker>
-            ) : null}
+            {this.state.isLoading == false
+              ? //   <Marker
+                //     coordinate={{ latitude: 28.549766, longitude: 77.185222 }}
+                //     title={"Last seen : " + this.state.data.bus_stop_name}
+                //     image={icon}
+                //   ></Marker>
+                this.generateMarker()
+              : null}
             {/* <MapView region={this.props.coordinate} showsUserLocation={true}>
           //My map markers
         </MapView> */}
@@ -115,17 +207,22 @@ class BusTrackMapScreen extends React.Component {
               // selectedValue={selectedValue}
               style={{ height: 50, width: 150 }}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
+                this.setState({
+                  update_bus_stop_id: itemValue,
+                })
               }
             >
-              <Picker.Item label="Java" value="java" />
-              <Picker.Item label="JavaScript" value="js" />
+              {/* <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" /> */}
+              {this.generatePicker()}
             </Picker>
             <Picker
               // selectedValue={selectedValue}
               style={{ height: 50, width: 150 }}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
+                this.setState({
+                  update_crowd_status: itemValue,
+                })
               }
             >
               <Picker.Item label="low crowd" value="low" />
@@ -135,7 +232,10 @@ class BusTrackMapScreen extends React.Component {
           </View>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => SimpleToast.show("Update")}
+            onPress={() => {
+              SimpleToast.show("Status  Updated");
+              this.updateStatus();
+            }}
           >
             <Text style={styles.submitButtonText}> Submit </Text>
           </TouchableOpacity>
@@ -146,6 +246,14 @@ class BusTrackMapScreen extends React.Component {
 }
 export default BusTrackMapScreen;
 
+const route = [
+  { bus_stop_id: "1763", bus_stop_name: "Nehru Vihar" },
+  { bus_stop_id: "3094", bus_stop_name: "Nehru Vihar Xing" },
+  { bus_stop_id: "2316", bus_stop_name: "Police Station Timarpur" },
+  { bus_stop_id: "681", bus_stop_name: "Balak Ram Hospital" },
+  { bus_stop_id: "1517", bus_stop_name: "Timarpur" },
+  { bus_stop_id: "2028", bus_stop_name: "Banarsi Daas Estate Timarpur" },
+];
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

@@ -20,6 +20,9 @@ class ListBusTrackScreen extends Component {
       data: 1,
       isLoading: true,
       trip_id_list: [],
+      routes_list: [],
+      bus_num_list: [],
+      timestamp: "",
     };
   }
 
@@ -31,6 +34,7 @@ class ListBusTrackScreen extends Component {
     // var src_id = this.props.route.params["src_id"];
     // var dest_id = this.props.route.params["dest_id"];
     var timestamp = this.props.route.params["timestamp"];
+
     // console.log(this.props.route.params["source"]);
     var src_id = 1763;
     var dest_id = 2028;
@@ -60,13 +64,20 @@ class ListBusTrackScreen extends Component {
     // console.log("render item called");
     // console.log(item);
     this.state.trip_id_list.push(item.trip.trip_id);
+    this.state.routes_list.push(item.route);
+    this.state.bus_num_list.push(item.bus_no);
     return (
       <TouchableOpacity
         onPress={() => {
           Toast.show(index + "Trip id" + item.trip.trip_id);
           var top_three_ids = [];
+          var top_three_routes = [];
+          var top_three_bus_numbers = [];
           for (var i = index; i < index + 3; i++) {
             top_three_ids.push(this.state.trip_id_list[i]);
+            top_three_routes.push(this.state.routes_list[i]);
+            top_three_bus_numbers.push(this.state.bus_num_list[i]);
+
             console.log(this.state.trip_id_list[i]);
           }
           this.props.navigation.navigate("BusTrackMapActivity", {
@@ -74,6 +85,7 @@ class ListBusTrackScreen extends Component {
             timestamp: this.props.route.params["timestamp"],
             trip_id: item.trip.trip_id,
             top_three_ids: top_three_ids,
+            top_three_routes: top_three_routes,
           });
         }}
       >
