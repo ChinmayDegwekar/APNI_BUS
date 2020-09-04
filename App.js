@@ -12,6 +12,7 @@ import TrackBusScreen from "./app/screens/TrackBusScreen";
 import FareCalculatorScreen from "./app/screens/FareCalculatorScreen";
 import ListBusScreen from "./app/screens/ListBusScreen";
 import ListBusTrackScreen from "./app/screens/ListBusTrackScreen";
+import BusTrackMapScreen from "./app/screens/BusTrackMapScreen";
 import RouteFinderScreen from "./app/screens/RouteFinderScreen";
 import BusRouteScreen from "./app/screens/BusRouteScreen";
 
@@ -38,6 +39,10 @@ export default function App() {
           component={ListBusTrackScreen}
         />
         <Stack.Screen name="BusRouteActivity" component={BusRouteScreen} />
+        <Stack.Screen
+          name="BusTrackMapActivity"
+          component={BusTrackMapScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     // console.log('sdfsd');

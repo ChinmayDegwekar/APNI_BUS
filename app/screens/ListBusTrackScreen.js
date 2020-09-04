@@ -57,10 +57,17 @@ class ListBusTrackScreen extends Component {
   };
   renderNativeItem(item) {
     // console.log("render item called");
-    console.log(item);
+    // console.log(item);
     return (
       <TouchableOpacity
-        onPress={() => Toast.show("Trip id" + item.trip.trip_id)}
+        onPress={() => {
+          Toast.show("Trip id" + item.trip.trip_id);
+          this.props.navigation.navigate("BusTrackMapActivity", {
+            route_list: item.route,
+            timestamp: this.props.route.params["timestamp"],
+            trip_id: item.trip.trip_id,
+          });
+        }}
       >
         <View style={styles.listStyle}>
           <View>
