@@ -11,7 +11,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import SimpleToast from "react-native-simple-toast";
-// import MapViewDirections from "react-native-maps-directions";
+/*
+Description : Show Google maps centered at delhi,
+             Marker colors convention : 1) Heavy Crowd : Red
+                                        2) Medium Crown : Orange
+                                        3) Low Crowd : Green
+             Provides input to update bus crowd information of preiously searched route
+Input : Bus stop lists and crowd status , both in dropdown
+Target Screen : Same, submit API call to update crowd status
+*/
 
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;

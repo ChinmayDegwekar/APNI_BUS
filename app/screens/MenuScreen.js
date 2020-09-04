@@ -17,7 +17,7 @@ function MenuScreen({ navigation }) {
           <Text style={styles.capitalLetter}> Apni Bus</Text>
         </Text>
       </TouchableOpacity>
-      {/* <text>Apni Bus </text> */}
+      {/* Each view defines the container of corresponding button */}
       <View style={styles.buttonContainer}>
         <Button
           style={styles.button_TrackBus}
@@ -62,35 +62,6 @@ function MenuScreen({ navigation }) {
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 50,
-    // paddingLeft: 15,
-    // // paddingRight: 15,
-    paddingBottom: 170,
-    flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "space-between",
-    // alignItems: "center",
-    // width: 300,
-  },
-  text: {
-    color: "#41cdf4",
-    fontSize: 45,
-    fontWeight: "bold",
-    textShadowColor: "darkblue",
-    textShadowOffset: { width: 2, height: 5 },
-    textShadowRadius: 5,
-    alignSelf: "center",
-    paddingBottom: 23,
-  },
-  // logo: {
-  //   // color: blue,
-
-  //   width: 210,
-  //   height: 60,
-  //   bottom: 40,
-  //   alignSelf: "center",
-  // },
   button_TrackBus: {
     backgroundColor: "#fc5c65",
     width: 100,
@@ -120,6 +91,27 @@ const styles = StyleSheet.create({
     margin: 20,
     // flexDirection: "row",
     // justifyContent: "space-between",
+  },
+  container: {
+    paddingTop: 50,
+    // paddingLeft: 15,
+    // // paddingRight: 15,
+    paddingBottom: 170,
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "space-between",
+    // alignItems: "center",
+    // width: 300,
+  },
+  text: {
+    color: "#41cdf4",
+    fontSize: 45,
+    fontWeight: "bold",
+    textShadowColor: "darkblue",
+    textShadowOffset: { width: 2, height: 5 },
+    textShadowRadius: 5,
+    alignSelf: "center",
+    paddingBottom: 23,
   },
 });
 

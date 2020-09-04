@@ -6,7 +6,6 @@ import MenuScreen from "./app/screens/MenuScreen";
 import { render } from "react-dom";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-// import BusFinder from "./app/screens/BusFinderScreen";
 import BusFinderScreen from "./app/screens/BusFinderScreen";
 import TrackBusScreen from "./app/screens/TrackBusScreen";
 import FareCalculatorScreen from "./app/screens/FareCalculatorScreen";
@@ -19,6 +18,9 @@ import BusRouteScreen from "./app/screens/BusRouteScreen";
 export default function App() {
   console.log("app started");
   return (
+    // Navigation container to control the movement across different screens
+    //CONVENTION : Screens have subscript = ...Screen
+    //           : Reference to them have subscript : ...Activity
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainActivity">
         <Stack.Screen name="MainActivity" component={WelcomeScreen} />
@@ -45,8 +47,6 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    // console.log('sdfsd');
-    // <WelcomeScreen />
   );
 
   console.disableYellowBox = true;

@@ -12,6 +12,14 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import Toast from "react-native-simple-toast";
 
+/*
+Description : Shows list of buses in sorted order of time,
+              Each bus can be selected to track individually,
+              Exception : No buses between source and destination
+Input : Select one of the buses
+Target Screen : BUsTrackMapScreen
+*/
+
 class ListBusTrackScreen extends Component {
   constructor() {
     super();

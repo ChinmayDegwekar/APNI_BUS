@@ -16,10 +16,15 @@ import { YellowBox } from "react-native";
 import { BusStopsData, renderBusStopNames } from "../data/bus-stops-data";
 
 YellowBox.ignoreWarnings([
-  "VirtualizedLists should never be nested", // TODO: Remove when fixed
+  "VirtualizedLists should never be nested",
   "Failed prop type",
 ]);
 
+/*
+Description : Shows input options of source and destination to track a bus
+Input : Source , Destinati0on
+Target Screen : ListBusTrackScreen
+*/
 class TrackBusScreen extends Component {
   state = {
     source: "",

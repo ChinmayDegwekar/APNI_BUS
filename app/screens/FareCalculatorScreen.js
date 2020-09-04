@@ -21,6 +21,12 @@ import {
   Cell,
 } from "react-native-table-component";
 
+/*
+Description : Shows fare of bus trip from source to destination
+Input : Source , Destination
+Target Screen : Same, Additional table view at bottom displaying fare
+*/
+
 class FareCalculatorScreen extends Component {
   state = {
     showTable: false,

@@ -11,6 +11,12 @@ import {
   StyleSheet,
 } from "react-native";
 
+/*
+Description : User input options for bus finder screen
+Input : Source , Destination 
+Target Scren : ListBusScreen
+*/
+
 class BusFinderScreen extends Component {
   state = {
     source: null,
@@ -59,14 +65,6 @@ class BusFinderScreen extends Component {
             }}
             maxHeight={150} //Controls visible options
           />
-          {/* <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Source"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={this.handlesource}
-        /> */}
           <Autocomplete
             style={styles.input}
             data={BUS_DATA}
@@ -80,15 +78,6 @@ class BusFinderScreen extends Component {
             maxHeight={150}
           />
         </View>
-        {/* <TextInput
-
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Destination"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={this.handledestination}
-        /> */}
 
         <TouchableOpacity
           style={styles.submitButton}

@@ -11,6 +11,12 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
+/*
+Description : Shows list of buses from source and destination
+Input : None
+Target Scren : None
+*/
+
 class ListBusScreen extends Component {
   constructor() {
     super();

@@ -12,7 +12,11 @@ import {
 import Autocomplete from "react-native-dropdown-autocomplete-textinput";
 import { BusNumbersData } from "../data/bus-number-data";
 import Toast from "react-native-simple-toast";
-
+/*
+Description : Shows the route sequence for a given bus number
+Input : Bus number
+Target Scren : Bus Route Screen
+*/
 class RouteFinderScreen extends Component {
   state = {
     bus_num: null,

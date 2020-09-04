@@ -9,7 +9,11 @@ import {
   FlatList,
 } from "react-native";
 import Timeline from "react-native-timeline-flatlist";
-
+/*
+Description : Shows sequence of bus stops in a timeline fashion 
+Input : None
+Target Screen : None
+*/
 class BusRouteScreen extends Component {
   constructor() {
     super();
@@ -18,19 +22,6 @@ class BusRouteScreen extends Component {
       data: 1,
       isLoading: true,
     };
-
-    // this.data = [
-    //   { time: "", title: "Event 1", description: "Event 1 Description" },
-    //   { time: "", title: "Event 2", description: "Event 2 Description" },
-    //   { time: "", title: "Event 3", description: "Event 3 Description" },
-    //   { time: "", title: "Event 4", description: "Event 4 Description" },
-    //   { time: "", title: "Event 5", description: "Event 5 Description" },
-    //   { time: "", title: "Event 1", description: "Event 1 Description" },
-    //   { time: "", title: "Event 2", description: "Event 2 Description" },
-    //   { time: "", title: "Event 3", description: "Event 3 Description" },
-    //   { time: "", title: "Event 4", description: "Event 4 Description" },
-    //   { time: "", title: "Event 5", description: "Event 5 Description" },
-    // ];
   }
   generateRequiredFormat(json) {
     var result = [];
