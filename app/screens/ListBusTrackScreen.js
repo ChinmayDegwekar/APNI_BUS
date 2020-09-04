@@ -19,6 +19,7 @@ class ListBusTrackScreen extends Component {
     this.state = {
       data: 1,
       isLoading: true,
+      trip_id_list: [],
     };
   }
 
@@ -55,17 +56,24 @@ class ListBusTrackScreen extends Component {
         console.log("get data error:" + error);
       });
   };
-  renderNativeItem(item) {
+  renderNativeItem(item, index) {
     // console.log("render item called");
     // console.log(item);
+    this.state.trip_id_list.push(item.trip.trip_id);
     return (
       <TouchableOpacity
         onPress={() => {
-          Toast.show("Trip id" + item.trip.trip_id);
+          Toast.show(index + "Trip id" + item.trip.trip_id);
+          var top_three_ids = [];
+          for (var i = index; i < index + 3; i++) {
+            top_three_ids.push(this.state.trip_id_list[i]);
+            console.log(this.state.trip_id_list[i]);
+          }
           this.props.navigation.navigate("BusTrackMapActivity", {
             route_list: item.route,
             timestamp: this.props.route.params["timestamp"],
             trip_id: item.trip.trip_id,
+            top_three_ids: top_three_ids,
           });
         }}
       >
@@ -106,7 +114,9 @@ class ListBusTrackScreen extends Component {
                   // ItemSeparatorComponent={this.renderSeparator}
                   style={{ flexGrow: 0, height: 400 }}
                   data={this.state.data["data"]}
-                  renderItem={({ item }) => this.renderNativeItem(item)}
+                  renderItem={({ item, index }) =>
+                    this.renderNativeItem(item, index)
+                  }
                   //   keyExtractor={(item) => item.id}
                 />
               </View>

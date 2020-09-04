@@ -1,7 +1,16 @@
 import React from "react";
 import MapView, { Marker } from "react-native-maps";
 
-import { StyleSheet, Text, View, Dimensions, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Alert,
+  Picker,
+  TouchableOpacity,
+} from "react-native";
+import SimpleToast from "react-native-simple-toast";
 // import MapViewDirections from "react-native-maps-directions";
 
 const { width, height } = Dimensions.get("window");
@@ -34,8 +43,15 @@ class BusTrackMapScreen extends React.Component {
 
   componentDidMount() {
     // var trip_id = this.props.route.params["trip_id"];
+    var top_three_ids = [100, 101, 112];
     var trip_id = 100;
-    const url = "http://157.245.110.40/getTrackInfo.php/?trip_id=" + trip_id;
+    const url =
+      "http://157.245.110.40/getTrackInfo.php/?trip_id1=" +
+      trip_id +
+      "&trip_id2=" +
+      top_three_ids[1] +
+      "&trip_id3=" +
+      top_three_ids[1];
     console.log(url);
 
     fetch(url)
@@ -55,6 +71,8 @@ class BusTrackMapScreen extends React.Component {
   //   Alert.alert{'Welcome to Apni Bus Delhi'}
   // }
 
+  generateMarker() {}
+
   render() {
     console.log("is loading" + this.state.isLoading);
     var img_path = "";
@@ -65,37 +83,81 @@ class BusTrackMapScreen extends React.Component {
         icon = require("../assets/crowd_high.png");
     }
     return (
-      //   <View style={styles.container}>
-
-      <MapView
-        style={styles.mapStyle}
-        initialRegion={{
-          latitude: this.state.latitude,
-          longitude: this.state.longitude,
-          latitudeDelta: LATITUDE_DELTA,
-          longitudeDelta: LONGITUDE_DELTA,
-        }}
-      >
-        {this.state.isLoading == false ? (
-          <Marker
-            coordinate={{ latitude: 28.549766, longitude: 77.185222 }}
-            title={"Last seen : " + this.state.data.bus_stop_name}
-            image={icon}
-          ></Marker>
-        ) : null}
-        {/* <MapView region={this.props.coordinate} showsUserLocation={true}>
+      <View style={styles.Container}>
+        <View style={styles.mapContainer}>
+          <MapView
+            style={styles.mapStyle}
+            initialRegion={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA,
+            }}
+          >
+            {this.state.isLoading == false ? (
+              <Marker
+                coordinate={{ latitude: 28.549766, longitude: 77.185222 }}
+                title={"Last seen : " + this.state.data.bus_stop_name}
+                image={icon}
+              ></Marker>
+            ) : null}
+            {/* <MapView region={this.props.coordinate} showsUserLocation={true}>
           //My map markers
         </MapView> */}
-      </MapView>
-      //   </View>
+          </MapView>
+        </View>
+        <View style={styles.updateContainer}>
+          <Text style={styles.text}>
+            Enter the bus stop and its crowd status
+          </Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              // selectedValue={selectedValue}
+              style={{ height: 50, width: 150 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+            <Picker
+              // selectedValue={selectedValue}
+              style={{ height: 50, width: 150 }}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }
+            >
+              <Picker.Item label="low crowd" value="low" />
+              <Picker.Item label="medium crowd" value="medium" />
+              <Picker.Item label="heavy crowd" value="high" />
+            </Picker>
+          </View>
+          <TouchableOpacity
+            style={styles.submitButton}
+            onPress={() => SimpleToast.show("Update")}
+          >
+            <Text style={styles.submitButtonText}> Submit </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
 export default BusTrackMapScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  Container: {
     flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pickerContainer: {
+    flexDirection: "row",
+  },
+  mapContainer: {
+    flex: 0.7,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -103,5 +165,30 @@ const styles = StyleSheet.create({
   mapStyle: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
+  },
+  updateContainer: {
+    flex: 0.3,
+    // flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
+  },
+  text: {
+    color: "#41cdf4",
+    fontSize: 16,
+    fontWeight: "bold",
+
+    alignSelf: "center",
+    // paddingBottom: 23,
+  },
+  submitButton: {
+    backgroundColor: "#7a42f4",
+    // padding: 10,
+    margin: 15,
+    height: 40,
+  },
+  submitButtonText: {
+    color: "white",
   },
 });
