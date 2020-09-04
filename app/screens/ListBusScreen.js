@@ -18,20 +18,27 @@ class ListBusScreen extends Component {
     this.state = {
       data: 1,
       isLoading: true,
+      source: "",
+      destination: "",
     };
   }
 
   componentDidMount() {
     console.log(this.state.data);
+    this.setState({
+      source: this.props.route.params["source"],
+      destination: this.props.route.params["destination"],
+    });
   }
 
   getRemoteData = () => {
-    // var src_id = this.props.route.params["src_id"];
-    // var dest_id = this.props.route.params["dest_id"];
+    var src_id = this.props.route.params["src_id"];
+    var dest_id = this.props.route.params["dest_id"];
     var timestamp = this.props.route.params["timestamp"];
+
     // console.log(this.props.route.params["source"]);
-    var src_id = 1763;
-    var dest_id = 2028;
+    // var src_id = 1763;
+    // var dest_id = 2028;
     const url =
       "http://157.245.110.40/getBusFinder.php/?src_id=" +
       src_id +
@@ -105,7 +112,7 @@ class ListBusScreen extends Component {
                 <Text style={styles.text}>
                   <Text style={styles.capitalLetter}>
                     {" "}
-                    Buses between {this.props.route.params["source"]} and
+                    Buses between {this.props.route.params["source"]} and{" "}
                     {this.props.route.params["destination"]}
                   </Text>
                 </Text>
@@ -121,7 +128,10 @@ class ListBusScreen extends Component {
               </View>
             ) : (
               <View>
-                <Text>No buses</Text>
+                <Text style={styles.no_route_style}>
+                  No buses between {this.state.source} and{" "}
+                  {this.state.destination}
+                </Text>
               </View>
             )}
           </View>
@@ -164,6 +174,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  no_route_style: {
+    color: "#c90000",
+    fontSize: 24,
+    fontWeight: "bold",
+    textShadowRadius: 5,
+    alignSelf: "center",
+    paddingBottom: 23,
   },
 });
 

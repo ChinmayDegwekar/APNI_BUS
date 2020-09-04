@@ -32,10 +32,11 @@ class BusTrackMapScreen extends React.Component {
       crowd_status: "high",
       img_path: "",
       marker_number: 0,
-      update_trip_id: 123,
+      update_trip_id: 0,
       update_time: "",
       update_bus_stop_id: 0,
       update_crowd_status: "low",
+      pickerValue: "",
     };
   }
 
@@ -58,14 +59,18 @@ class BusTrackMapScreen extends React.Component {
 
   componentDidMount() {
     // var trip_id = this.props.route.params["trip_id"];
-    var top_three_ids = [100, 101, 112];
+    var top_three_ids = this.props.route.params["top_three_ids"];
+
     var ts = this.props.route.params["timestamp"];
     console.log("Mountted" + ts);
     this.setState({
       update_time: ts,
+      update_trip_id: top_three_ids[0],
     });
-    // var top_three_bus_numbers = this.props.route.params["top_three_bus_numbers"]
-    var top_three_bus_numbers = ["108STL", "108STL", "108STL"];
+    var top_three_bus_numbers = this.props.route.params[
+      "top_three_bus_numbers"
+    ];
+    // var top_three_bus_numbers = ["108STL", "108STL", "108STL"];
     var trip_id = 100;
     const url =
       "http://157.245.110.40/getTrackInfo.php/?trip_id1=" +
@@ -121,7 +126,7 @@ class BusTrackMapScreen extends React.Component {
       else icon = require("../assets/crowd_low.png");
 
       if (item.success == "false") {
-        SimpleToast.show("No tracking information to show at this moment");
+        // SimpleToast.show("No tracking information to show at this moment");
         return null;
       } else
         return (
@@ -204,7 +209,10 @@ class BusTrackMapScreen extends React.Component {
           </Text>
           <View style={styles.pickerContainer}>
             <Picker
-              // selectedValue={selectedValue}
+              selectedValue={
+                (this.state && this.state.update_bus_stop_id) ||
+                "select station"
+              }
               style={{ height: 50, width: 150 }}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({
@@ -218,6 +226,10 @@ class BusTrackMapScreen extends React.Component {
             </Picker>
             <Picker
               // selectedValue={selectedValue}
+              selectedValue={
+                (this.state && this.state.update_crowd_status) ||
+                "select status"
+              }
               style={{ height: 50, width: 150 }}
               onValueChange={(itemValue, itemIndex) =>
                 this.setState({

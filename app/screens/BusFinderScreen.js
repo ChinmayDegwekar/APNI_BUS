@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BusStopsData, renderBusStopNames } from "../data/bus-stops-data";
 import Autocomplete from "react-native-dropdown-autocomplete-textinput";
+import Toast from "react-native-simple-toast";
 import {
   View,
   SafeAreaView,
@@ -12,8 +13,8 @@ import {
 
 class BusFinderScreen extends Component {
   state = {
-    source: "",
-    destination: "",
+    source: null,
+    destination: null,
     src_id: "",
     dest_id: "",
     timestamp: "",
@@ -91,15 +92,20 @@ class BusFinderScreen extends Component {
 
         <TouchableOpacity
           style={styles.submitButton}
-          onPress={() =>
-            this.props.navigation.navigate("ListBusActivity", {
-              source: this.state.source,
-              destination: this.state.destination,
-              src_id: this.state.src_id,
-              dest_id: this.state.dest_id,
-              timestamp: this.state.timestamp,
-            })
-          }
+          onPress={() => {
+            if (this.state.source == null || this.state.destination == null)
+              Toast.show("Please select source and destination", Toast.LONG);
+            else if (this.state.source == this.state.destination)
+              Toast.show("Source and destination is same ", Toast.LONG);
+            else
+              this.props.navigation.navigate("ListBusActivity", {
+                source: this.state.source,
+                destination: this.state.destination,
+                src_id: this.state.src_id,
+                dest_id: this.state.dest_id,
+                timestamp: this.state.timestamp,
+              });
+          }}
         >
           <Text style={styles.submitButtonText}> Submit </Text>
         </TouchableOpacity>

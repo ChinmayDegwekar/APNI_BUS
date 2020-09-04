@@ -33,11 +33,12 @@ class ListBusTrackScreen extends Component {
   getRemoteData = () => {
     // var src_id = this.props.route.params["src_id"];
     // var dest_id = this.props.route.params["dest_id"];
-    var timestamp = this.props.route.params["timestamp"];
+    // var timestamp = this.props.route.params["timestamp"];
 
     // console.log(this.props.route.params["source"]);
-    var src_id = 1763;
-    var dest_id = 2028;
+    var src_id = 3094;
+    var dest_id = 1022;
+    var timestamp = "10:10:10";
     const url =
       "http://157.245.110.40/getBusFinder.php/?src_id=" +
       src_id +
@@ -86,6 +87,7 @@ class ListBusTrackScreen extends Component {
             trip_id: item.trip.trip_id,
             top_three_ids: top_three_ids,
             top_three_routes: top_three_routes,
+            top_three_bus_numbers: top_three_bus_numbers,
           });
         }}
       >
