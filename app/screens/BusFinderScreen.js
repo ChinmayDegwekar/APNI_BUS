@@ -103,11 +103,9 @@ class BusFinderScreen extends Component {
   }
 }
 export default BusFinderScreen;
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
 
-const DATA = [
-  { code: "AP", name: "Andhra Pradesh" },
-  { code: "AR", name: "Arunachal Pradesh" },
-];
 const BUS_DATA = BusStopsData();
 const styles = StyleSheet.create({
   container: {

@@ -61,6 +61,9 @@ function MenuScreen({ navigation }) {
     </SafeAreaView>
   );
 }
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
+
 const styles = StyleSheet.create({
   button_TrackBus: {
     backgroundColor: "#fc5c65",

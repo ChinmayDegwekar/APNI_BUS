@@ -121,6 +121,8 @@ class TrackBusScreen extends Component {
   }
 }
 export default TrackBusScreen;
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
 
 const BUS_NUMBER_DATA = BusNumbersData();
 const BUS_DATA = BusStopsData();

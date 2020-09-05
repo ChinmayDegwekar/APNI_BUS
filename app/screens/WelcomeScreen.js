@@ -32,7 +32,8 @@ function WelcomeScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-//STYLES of containers are defined here in a sorted order
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#fc5c65",

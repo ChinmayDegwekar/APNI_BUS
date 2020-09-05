@@ -206,6 +206,8 @@ class FareCalculatorScreen extends Component {
   }
 }
 export default FareCalculatorScreen;
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
 
 const BUS_DATA = BusStopsData();
 const styles = StyleSheet.create({

@@ -291,6 +291,9 @@ class BusTrackMapScreen extends React.Component {
   }
 }
 export default BusTrackMapScreen;
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
+
 var marker_present = false;
 // const route = [
 //   { bus_stop_id: "1763", bus_stop_name: "Nehru Vihar" },

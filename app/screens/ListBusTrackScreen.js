@@ -169,6 +169,8 @@ class ListBusTrackScreen extends Component {
   }
 }
 export default ListBusTrackScreen;
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
 
 const styles = StyleSheet.create({
   container: {
