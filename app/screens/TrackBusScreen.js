@@ -122,7 +122,7 @@ const BUS_NUMBER_DATA = BusNumbersData();
 const BUS_DATA = BusStopsData();
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 5,
+    paddingTop: 50,
   },
   dropdown: {},
   text: {

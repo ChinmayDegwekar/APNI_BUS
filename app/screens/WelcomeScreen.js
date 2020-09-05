@@ -42,6 +42,13 @@ function WelcomeScreen({ navigation }) {
 //STYLES of containers are defined here
 //Convention : Name of style component to be arranged in a sorted order
 const styles = StyleSheet.create({
+  alternativeLayoutButtonContainer: {
+    width: 100,
+    height: 60,
+    alignSelf: "center",
+    top: 20,
+    bottom: 20,
+  },
   button: {
     backgroundColor: "#fc5c65",
     width: 66,

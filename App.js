@@ -14,6 +14,7 @@ import ListBusTrackScreen from "./app/screens/ListBusTrackScreen";
 import BusTrackMapScreen from "./app/screens/BusTrackMapScreen";
 import RouteFinderScreen from "./app/screens/RouteFinderScreen";
 import BusRouteScreen from "./app/screens/BusRouteScreen";
+import DevelopersScreen from "./app/screens/DevelopersScreen";
 
 export default function App() {
   console.log("app started");
@@ -45,6 +46,7 @@ export default function App() {
           name="BusTrackMapActivity"
           component={BusTrackMapScreen}
         />
+        <Stack.Screen name="Developers" component={DevelopersScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -67,6 +67,13 @@ function MenuScreen({ navigation }) {
           onPress={() => navigation.navigate("FareCalculatorActivity")}
         />
       </View>
+      <View style={styles.alternativeLayoutButtonContainer}>
+        <Button
+          onPress={() => navigation.navigate("Developers")}
+          title="Developers"
+          color="#6495ed"
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -74,6 +81,13 @@ function MenuScreen({ navigation }) {
 //Convention : Name of style component to be arranged in a sorted order
 
 const styles = StyleSheet.create({
+  alternativeLayoutButtonContainer: {
+    width: 150,
+    height: 60,
+    alignSelf: "center",
+    top: 20,
+    bottom: 20,
+  },
   button_TrackBus: {
     backgroundColor: "#fc5c65",
     width: 100,
