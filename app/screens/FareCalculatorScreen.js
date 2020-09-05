@@ -23,7 +23,7 @@ import {
 
 /*
 Description : Shows fare of bus trip from source to destination
-Input : Source , Destination
+Input : Source , Destination with autocomplete functionality
 Target Screen : Same, Additional table view at bottom displaying fare
 */
 
@@ -38,13 +38,6 @@ class FareCalculatorScreen extends Component {
     fare_data: null,
 
     HeadTable: ["Bus Number", "From", "To", "Price(in Rs.)"],
-    DataTable: [
-      ["1", "2", "3", "4", "5"],
-      ["a", "b", "c", "d", "e"],
-      ["1", "2", "3", "4", "5"],
-      ["a", "b", "c", "d", "e"],
-      ["1", "2", "3", "4", "5"],
-    ],
   };
   handlesource = (text) => {
     this.setState({ source: text });
@@ -56,6 +49,7 @@ class FareCalculatorScreen extends Component {
     alert("Source: " + source + " Destination: " + destination);
   };
 
+  //Converts json response to required data format
   json_to_rows_data = (src_id, dest_id, json) => {
     var result_list = [];
     var n = json["result"].length;
@@ -77,6 +71,7 @@ class FareCalculatorScreen extends Component {
     return result_list;
   };
 
+  //UI component generation for table
   renderTable = (source, destination) => {
     // First get src and destination ids
     var src_id = this.state.src_id;
@@ -142,26 +137,12 @@ class FareCalculatorScreen extends Component {
           }}
           maxHeight={150}
         />
-        {/* <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Source"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={this.handlesource}
-        />
-        <TextInput
-          style={styles.input}
-          underlineColorAndroid="transparent"
-          placeholder="Destination"
-          placeholderTextColor="#9a73ef"
-          autoCapitalize="none"
-          onChangeText={this.handledestination}
-        /> */}
+
         <TouchableOpacity
           style={styles.submitButton}
           onPress={
             () => {
+              //Exception handling for no input fields
               if (this.state.source == null || this.state.destination == null)
                 Toast.show("Please select source and destination", Toast.LONG);
               else if (this.state.source == this.state.destination)

@@ -23,7 +23,7 @@ YellowBox.ignoreWarnings([
 
 /*
 Description : Shows input options of source and destination to track a bus
-Input : Source , Destinati0on
+Input : Source , Destination with autocomplete functionality
 Target Screen : ListBusTrackScreen
 */
 class TrackBusScreen extends Component {
@@ -55,12 +55,6 @@ class TrackBusScreen extends Component {
   };
   render() {
     return (
-      // <KeyboardAvoidingView
-      //   style={styles.container}
-      //   behavior="padding"
-      //   keyboardVerticalOffset={-500} // adjust the value here if you need more padding
-      // >
-      // <ScrollView>
       <View style={styles.container}>
         <SafeAreaView style={styles.container}>
           <Text style={styles.text}>

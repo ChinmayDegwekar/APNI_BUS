@@ -9,9 +9,14 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
+/*
+Description : This screen will display the app logo for 2 seconds and navigate to Menu
+Input : None
+Target Screen : MenuScreen
+*/
 function WelcomeScreen({ navigation }) {
   console.log("Welcome called");
+
   var delayInMilliseconds = 2000; //2 seconds
   var timeover = false;
   setTimeout(function () {
@@ -21,7 +26,9 @@ function WelcomeScreen({ navigation }) {
     navigation.navigate("MenuActivity");
   }, delayInMilliseconds);
   return (
+    //Main container covering entier screen, all sub container lies inside this
     <SafeAreaView style={styles.container}>
+      {/* // Safe Area View to make it screen size independent */}
       <TouchableOpacity>
         <Image
           fadeDuration={500}

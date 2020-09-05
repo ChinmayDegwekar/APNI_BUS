@@ -2,6 +2,12 @@ export function renderBusStopNames(state, val) {
   return state.stop_name.toLowerCase().indexOf(val.toLowerCase()) !== -1;
 }
 
+/*
+Content : Static data 
+Source : Delhi Transport Corporation
+Courtesy : IIID Remote Bus api
+Content : List of Bus stop names and Bus IDs
+*/
 export function BusStopsData() {
   return [
     {

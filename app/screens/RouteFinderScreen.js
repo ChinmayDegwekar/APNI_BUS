@@ -14,7 +14,7 @@ import { BusNumbersData } from "../data/bus-number-data";
 import Toast from "react-native-simple-toast";
 /*
 Description : Shows the route sequence for a given bus number
-Input : Bus number
+Input : Bus number with autocomplete functionaliyt
 Target Scren : Bus Route Screen
 */
 class RouteFinderScreen extends Component {

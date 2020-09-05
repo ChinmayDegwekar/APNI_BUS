@@ -29,6 +29,7 @@ class ListBusScreen extends Component {
     };
   }
 
+  // First code to execute after the screen is loaded
   componentDidMount() {
     console.log(this.state.data);
     this.setState({
@@ -37,6 +38,7 @@ class ListBusScreen extends Component {
     });
   }
 
+  // Perform API call to get data
   getRemoteData = () => {
     var src_id = this.props.route.params["src_id"];
     var dest_id = this.props.route.params["dest_id"];
@@ -67,6 +69,8 @@ class ListBusScreen extends Component {
         console.log("get data error:" + error);
       });
   };
+
+  // Render List item
   renderNativeItem(item) {
     // console.log("render item called");
     // console.log(item);
@@ -102,13 +106,9 @@ class ListBusScreen extends Component {
     );
   }
 
+  // Render the UI components continuously
   render() {
-    // console.log("render called");
     this.getRemoteData();
-    // const { data } = this.state;
-    // console.log(data);
-    // console.log(this.state.data);
-    // console.log(this.props.route.params);
     return (
       <SafeAreaView style={styles.container}>
         {this.state.isLoading == false ? (

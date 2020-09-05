@@ -52,6 +52,9 @@ export default function App() {
   console.disableYellowBox = true;
 }
 const Stack = createStackNavigator();
+//STYLES of containers are defined here
+//Convention : Name of style component to be arranged in a sorted order
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

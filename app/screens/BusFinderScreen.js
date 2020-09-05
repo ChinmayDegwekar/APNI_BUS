@@ -13,7 +13,7 @@ import {
 
 /*
 Description : User input options for bus finder screen
-Input : Source , Destination 
+Input : Source , Destination with autocomplete functionality
 Target Scren : ListBusScreen
 */
 

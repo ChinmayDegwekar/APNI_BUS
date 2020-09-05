@@ -8,9 +8,14 @@ import {
   SafeAreaView,
   View,
 } from "react-native";
-
+/*
+Description : Displays Apni Bus title and four buttons 
+Input : Select one of the functionality
+Target Screen : Each button click navigates to corresponding activity
+*/
 function MenuScreen({ navigation }) {
   return (
+    //Main container covering entier screen, all sub container lies inside this
     <SafeAreaView style={styles.container}>
       <TouchableOpacity>
         <Text style={styles.text}>
@@ -18,6 +23,7 @@ function MenuScreen({ navigation }) {
         </Text>
       </TouchableOpacity>
       {/* Each view defines the container of corresponding button */}
+      {/* TRACK BUS */}
       <View style={styles.buttonContainer}>
         <Button
           style={styles.button_TrackBus}
@@ -28,6 +34,7 @@ function MenuScreen({ navigation }) {
           onPress={() => navigation.navigate("TrackBusActivity")}
         />
       </View>
+      {/* BUS FINDER  */}
       <View style={styles.buttonContainer}>
         <Button
           style={styles.button_BusFinder}
@@ -38,6 +45,7 @@ function MenuScreen({ navigation }) {
           onPress={() => navigation.navigate("BusFinderActivity")}
         />
       </View>
+      {/* ROUTE FINDER  */}
       <View style={styles.buttonContainer}>
         <Button
           style={styles.button_RouteFinder}
@@ -48,6 +56,7 @@ function MenuScreen({ navigation }) {
           onPress={() => navigation.navigate("RouteFinderActivity")}
         />
       </View>
+      {/* FARE CACULATOR  */}
       <View style={styles.buttonContainer}>
         <Button
           style={styles.button_FareCalculator}
